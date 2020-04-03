@@ -43,8 +43,8 @@
 			If (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('IPAddress')) {
 				IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('IPAddress'));
 			}
-			If (IPS_GetProperty($ParentID, 'Port') <> 8888) {
-				IPS_SetProperty($ParentID, 'Port', 8888);
+			If (IPS_GetProperty($ParentID, 'Port') <> 8173) {
+				IPS_SetProperty($ParentID, 'Port', 8173);
 			}
 			If (IPS_GetProperty($ParentID, 'Open') <> $this->ReadPropertyBoolean("Open")) {
 				IPS_SetProperty($ParentID, 'Open', $this->ReadPropertyBoolean("Open"));
