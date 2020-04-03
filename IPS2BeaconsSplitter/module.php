@@ -45,7 +45,10 @@
 				IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('IPAddress'));
 			}
 			*/
-			If (IPS_GetProperty($ParentID, 'BindPort') <> 8173) {
+			If (IPS_GetProperty($ParentID, 'Port') <> 8173) {
+				IPS_SetProperty($ParentID, 'BindPort', 8173);
+			}
+			If (IPS_GetProperty($ParentID, 'Port') <> 8173) {
 				IPS_SetProperty($ParentID, 'BindPort', 8173);
 			}
 			If (IPS_GetProperty($ParentID, 'Open') <> $this->ReadPropertyBoolean("Open")) {
