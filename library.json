@@ -1,0 +1,12 @@
+{
+  "id": "{19B6F1BA-929A-56DC-7CDE-6C96308D2872}",
+  "author": "Joachim Päper",
+  "name": "IPS2Beacons",
+  "url": "www.ip-symcon.de",
+  "compatibility": {
+        "version": "5.1"
+  },
+  "version": "1.0",
+  "build": 0,
+  "date": 0
+}
