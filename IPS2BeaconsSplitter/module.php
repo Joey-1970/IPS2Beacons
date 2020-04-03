@@ -54,8 +54,17 @@
 			If (IPS_GetProperty($ParentID, 'Open') <> $this->ReadPropertyBoolean("Open")) {
 				IPS_SetProperty($ParentID, 'Open', $this->ReadPropertyBoolean("Open"));
 			}
-			If (IPS_GetName($ParentID) == "Multicast Socket") {
-				IPS_SetName($ParentID, "IPS2Beacons");
+			If (IPS_GetProperty($ParentID, 'EnableBroadcast') <> false) {
+				IPS_SetProperty($ParentID, 'EnableBroadcast', false);
+			}
+			If (IPS_GetProperty($ParentID, 'EnableLoopback') <> false) {
+				IPS_SetProperty($ParentID, 'EnableLoopback', false);
+			}
+			If (IPS_GetProperty($ParentID, 'EnableReuseAddress') <> false) {
+				IPS_SetProperty($ParentID, 'EnableReuseAddress', false);
+			}
+			If (substr(IPS_GetName($ParentID), 0, 16) == "Multicast Socket") {
+				IPS_SetName($ParentID, "IPS2Beacons (#".$this->InstanceID.")");
 			}
 			if(IPS_HasChanges($ParentID))
 			{
