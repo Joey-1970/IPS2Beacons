@@ -9,6 +9,10 @@
             	// Diese Zeile nicht löschen.
             	parent::Create();
 		$this->RegisterPropertyBoolean("Open", false);
+		
+		$this->RequireParent("{BAB408E0-0A0F-48C3-B14E-9FB2FA81F66A}"); // Multicast Socket
+		
+		
         }
  	
 	public function GetConfigurationForm() 
@@ -32,6 +36,34 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
+		
+		$ParentID = $this->GetParentID();
+			
+		If ($ParentID > 0) {
+			If (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('IPAddress')) {
+				IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('IPAddress'));
+			}
+			If (IPS_GetProperty($ParentID, 'Port') <> 8888) {
+				IPS_SetProperty($ParentID, 'Port', 8888);
+			}
+			If (IPS_GetProperty($ParentID, 'Open') <> $this->ReadPropertyBoolean("Open")) {
+				IPS_SetProperty($ParentID, 'Open', $this->ReadPropertyBoolean("Open"));
+			}
+			If (IPS_GetName($ParentID) == "Multicast Socket") {
+				IPS_SetName($ParentID, "IPS2Beacons");
+			}
+			if(IPS_HasChanges($ParentID))
+			{
+				$Result = @IPS_ApplyChanges($ParentID);
+				If ($Result) {
+					$this->SendDebug("ApplyChanges", "Einrichtung des Multicast Socket erfolgreich", 0);
+				}
+				else {
+					$this->SendDebug("ApplyChanges", "Einrichtung des Multicast Socket nicht erfolgreich!", 0);
+				}
+			}
+		}
+		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			
@@ -60,7 +92,11 @@
 	// Beginn der Funktionen
 	
 	
-	
+	private function GetParentID()
+	{
+		$ParentID = (IPS_GetInstance($this->InstanceID)['ConnectionID']);  
+	return $ParentID;
+	}
 	   
 	 
 }
