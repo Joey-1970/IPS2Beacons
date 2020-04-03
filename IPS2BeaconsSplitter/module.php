@@ -64,7 +64,7 @@
 				IPS_SetProperty($ParentID, 'EnableReuseAddress', false);
 			}
 			If (substr(IPS_GetName($ParentID), 0, 16) == "Multicast Socket") {
-				IPS_SetName($ParentID, "IPS2Beacons (#".$this->InstanceID.")");
+				IPS_SetName($ParentID, "IPS2Beacons (IPS2BeaconsSplitter #".$this->InstanceID.")");
 			}
 			if(IPS_HasChanges($ParentID))
 			{
@@ -102,7 +102,16 @@
 		}
 	return $Result;
 	}
-	    
+	
+	public function ReceiveData($JSONString) {	
+ 	    	// Empfangene Daten vom I/O
+	    	$Data = json_decode($JSONString);
+	    	$Buffer = utf8_decode($Data->Buffer); 
+		$ClientIP = $Data->ClientIP;
+		$ClientPort = $Data->ClientPort;
+		$this->SendDebug("ReceiveData", "Buffer: ".$Buffer." ClintIP: ".$ClientIP." ClientPort: ".$ClientPort, 0);
+		
+	}   
 	// Beginn der Funktionen
 	
 	
