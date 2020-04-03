@@ -1,0 +1,14 @@
+{
+  "id": "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}",
+  "name": "IPS2BeaconsDevice",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2BeaconsDevice"
+  ],
+  "parentRequirements": ["{348C3E9C-31F8-2A75-8896-398B3536D1BA}"],
+  "childRequirements": [],
+  "implemented": ["{10F33B43-3B21-2103-79DA-60F0267053F5}"],
+  "prefix": "IPS2BeaconsDevice"
+}
