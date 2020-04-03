@@ -1,0 +1,14 @@
+{
+  "id": "{1CB80BEC-EEB8-8CEB-F8A1-7DB11013F6A7}",
+  "name": "IPS2BeaconsSplitter",
+  "type": 2,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2BeaconsSplitter"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "IPS2BeaconsSplitter"
+}
