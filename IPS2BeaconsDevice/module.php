@@ -11,8 +11,14 @@
 		$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{1CB80BEC-EEB8-8CEB-F8A1-7DB11013F6A7}");
 		
+		// Status-Variablen anlegen
+		$this->RegisterProfileInteger("IPS2Beacons.Presence", "Motion", "", "", 0, 3, 0);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.Presence", 0, "unbekannt", "Motion", 0xff0000);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.Presence", 1, "Abwesend", "Motion", -1);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.Presence", 2, "Anwesend", "Motion", 0x0000ff);
 		
-		
+		$this->RegisterVariableInteger("State", "Status", "IPS2Beacons.Presence", 10);
+		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 20);
         }
  	
 	public function GetConfigurationForm() 
@@ -54,6 +60,21 @@
 	// Beginn der Funktionen
 	
 
-	 
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);        
+	}
 }
 ?>
