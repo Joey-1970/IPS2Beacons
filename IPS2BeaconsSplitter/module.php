@@ -40,11 +40,6 @@
 		$ParentID = $this->GetParentID();
 			
 		If ($ParentID > 0) {
-			/*
-			If (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('IPAddress')) {
-				IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('IPAddress'));
-			}
-			*/
 			If (IPS_GetProperty($ParentID, 'Port') <> 8173) {
 				IPS_SetProperty($ParentID, 'BindPort', 8173);
 			}
