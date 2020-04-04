@@ -12,7 +12,7 @@
 		
 		$this->RequireParent("{BAB408E0-0A0F-48C3-B14E-9FB2FA81F66A}"); // Multicast Socket
 		
-		
+		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
         }
  	
 	public function GetConfigurationForm() 
@@ -110,7 +110,7 @@
 		$ClientIP = $Data->ClientIP;
 		$ClientPort = $Data->ClientPort;
 		$this->SendDebug("ReceiveData", "Buffer: ".$Buffer." ClintIP: ".$ClientIP." ClientPort: ".$ClientPort, 0);
-		
+		SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 	}   
 	// Beginn der Funktionen
 	
