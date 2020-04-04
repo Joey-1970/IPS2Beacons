@@ -42,7 +42,7 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
-		
+		SetValueInteger($this->GetIDForIdent("State"), 0);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			
