@@ -2,15 +2,27 @@
     // Klassendefinition
     class IPS2BeaconsSplitter extends IPSModule 
     {
-	   
+	public function Destroy() 
+	{
+		//Never delete this line!
+		parent::Destroy();
+		$this->SetTimerInterval("Timer_Ping", 0);
+	}  
+	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
-		$this->RegisterPropertyBoolean("Open", false);
-		
 		$this->RequireParent("{BAB408E0-0A0F-48C3-B14E-9FB2FA81F66A}"); // Multicast Socket
+		$this->RegisterPropertyBoolean("Open", false);
+		$this->RegisterPropertyInteger("Timer_Ping", 60);
+		$this->RegisterTimer("Timer_Ping", 0, 'IPS2BeaconsSplitter_Ping($_IPS["TARGET"]);');
+		
+		
+		
+		
+		
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
 		$ClientIP = array();
 		$this->RegisterAttributeString("ClientIP", serialize($ClientIP));
