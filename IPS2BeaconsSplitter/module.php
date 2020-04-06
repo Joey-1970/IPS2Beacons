@@ -90,6 +90,7 @@
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SetTimerInterval("TimerPing", $this->ReadPropertyInteger("TimerPing") * 1000);
+			$this->ClientPing();
 			$this->SetStatus(102);
 			
 			
