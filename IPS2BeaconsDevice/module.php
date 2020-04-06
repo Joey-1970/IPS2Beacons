@@ -78,6 +78,7 @@
 	
 	// Beginn der Funktionen
 	private function StateSet() {
+		$this->SendDebug("StateSet", "Status wird auf anwesend gesetzt", 0);
 		SetValueInteger($this->GetIDForIdent("State"), 2);
 		$Timer_1 = $this->ReadPropertyInteger("Timer_1");
 		$Timer_1 = max($TimerPing, 5);
@@ -85,6 +86,7 @@
 	}    
 	   
 	public function StateReset() {
+		$this->SendDebug("StateReset", "Status wird auf abwesend gesetzt", 0);
 		SetValueInteger($this->GetIDForIdent("State"), 1);
 		$this->SetTimerInterval("Timer_1", 0);
 	}
