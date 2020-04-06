@@ -108,7 +108,7 @@
 		$ClientIP = array();
 		$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
 		if (in_array($ReceivedClientIP, $ClientIP) == false) {
-    			$ClientIP() = $ReceivedClientIP;
+    			$ClientIP[] = $ReceivedClientIP;
 			$this->WriteAttributeString("ClientIP", serialize($ClientIP));
 			$this->SendDebug("ReceiveData", "ClientIP-Array: ".serialize($ClientIP), 0);
 		}
