@@ -6,7 +6,7 @@
 	{
 		//Never delete this line!
 		parent::Destroy();
-		$this->SetTimerInterval("Timer_Ping", 0);
+		$this->SetTimerInterval("TimerPing", 0);
 	}  
 	    
 	// Überschreibt die interne IPS_Create($id) Funktion
@@ -16,8 +16,8 @@
             	parent::Create();
 		$this->RequireParent("{BAB408E0-0A0F-48C3-B14E-9FB2FA81F66A}"); // Multicast Socket
 		$this->RegisterPropertyBoolean("Open", false);
-		$this->RegisterPropertyInteger("Timer_Ping", 60);
-		$this->RegisterTimer("Timer_Ping", 0, 'IPS2BeaconsSplitter_Ping($_IPS["TARGET"]);');
+		$this->RegisterPropertyInteger("TimerPing", 60);
+		$this->RegisterTimer("TimerPing", 0, 'IPS2BeaconsSplitter_ClientPing($_IPS["TARGET"]);');
 		
 		
 		
@@ -38,7 +38,8 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
-		
+		$arrayElements[] = array("type" => "NumberSpinner", "name" => "TimerPing", "caption" => "Ping (sek)");
+
 		$arrayActions = array();
 		     	
  		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements, "actions" => $arrayActions)); 		 
@@ -130,7 +131,10 @@
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 	}   
 	// Beginn der Funktionen
-	
+	public function ClientPing()
+	{
+		
+	}
 	
 	private function GetParentID()
 	{
