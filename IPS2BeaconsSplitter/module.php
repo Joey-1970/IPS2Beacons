@@ -38,6 +38,7 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
+		$arrayElements[] = array("type" => "Label", "label" => "Zyklische Verfügbarkeitsprüfung per Ping (Minimum 5 Sekunden)");
 		$arrayElements[] = array("type" => "NumberSpinner", "name" => "TimerPing", "caption" => "Ping (sek)");
 
 		$arrayActions = array();
@@ -89,7 +90,9 @@
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SetTimerInterval("TimerPing", $this->ReadPropertyInteger("TimerPing") * 1000);
+			$TimerPing = $this->ReadPropertyInteger("TimerPing");
+			$TimerPing = max($TimerPing, 3);
+			$this->SetTimerInterval("TimerPing", $TimerPing * 1000);
 			$this->ClientPing();
 			$this->SetStatus(102);
 			
