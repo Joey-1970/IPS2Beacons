@@ -133,7 +133,11 @@
 	// Beginn der Funktionen
 	public function ClientPing()
 	{
-		
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$ClientIP = array();
+			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
+			
+		}
 	}
 	
 	private function GetParentID()
