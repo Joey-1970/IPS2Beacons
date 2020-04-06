@@ -11,8 +11,9 @@
 		$this->RegisterPropertyBoolean("Open", false);
 		
 		$this->RequireParent("{BAB408E0-0A0F-48C3-B14E-9FB2FA81F66A}"); // Multicast Socket
-		
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
+		$ClientIP = array();
+		$this->RegisterAttributeString("ClientIP", serialize($ClientIP));
         }
  	
 	public function GetConfigurationForm() 
@@ -102,7 +103,16 @@
  	    	// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
 	    	$Buffer = utf8_decode($Data->Buffer); 
-		$ClientIP = $Data->ClientIP;
+		$ReceivedClientIP = $Data->ClientIP;
+		// Empfangen IP in Array sichern
+		$ClientIP = array();
+		$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
+		if (in_array($ReceivedClientIP, $ClientIP) == false) {
+    			$ClientIP() = $ReceivedClientIP;
+			$this->WriteAttributeString("ClientIP", serialize($ClientIP));
+			$this->SendDebug("ReceiveData", "ClientIP-Array: ".serialize($ClientIP), 0);
+		}
+		
 		$ClientPort = $Data->ClientPort;
 		$this->SendDebug("ReceiveData", "Buffer: ".$Buffer." ClintIP: ".$ClientIP." ClientPort: ".$ClientPort, 0);
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
