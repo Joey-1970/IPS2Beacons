@@ -96,7 +96,7 @@
 			
 		}
 		else {
-			$this->SetTimerInterval("TimerPing", 0;
+			$this->SetTimerInterval("TimerPing", 0);
 			$this->SetStatus(104);
 			
 		}	
