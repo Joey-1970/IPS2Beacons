@@ -89,12 +89,13 @@
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			
+			$this->SetTimerInterval("TimerPing", $this->ReadPropertyInteger("TimerPing") * 1000);
 			$this->SetStatus(102);
 			
 			
 		}
 		else {
+			$this->SetTimerInterval("TimerPing", 0;
 			$this->SetStatus(104);
 			
 		}	
@@ -134,9 +135,18 @@
 	public function ClientPing()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("ClientPing", "Bekannte IP werden angepingt", 0);
 			$ClientIP = array();
 			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
-			
+			foreach ($ClientIP as $IP) {
+    				$Result = Sys_Ping($IP, 200);
+    				If ($Result == false) {
+					$this->SendDebug("ClientPing", "Nicht erreichbare IP: ".$IP, 0);
+    				}
+    				else {
+
+    				}
+}
 		}
 	}
 	
