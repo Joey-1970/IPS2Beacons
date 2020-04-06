@@ -2,7 +2,13 @@
     // Klassendefinition
     class IPS2BeaconsDevice extends IPSModule 
     {
-	   
+	public function Destroy() 
+	{
+		//Never delete this line!
+		parent::Destroy();
+		$this->SetTimerInterval("Timer_1", 0);
+	}  
+	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
@@ -10,6 +16,8 @@
             	parent::Create();
 		$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{1CB80BEC-EEB8-8CEB-F8A1-7DB11013F6A7}");
+		$this->RegisterPropertyInteger("Timer_1", 60);
+		$this->RegisterTimer("Timer_1", 0, 'IPS2BeaconsDevice_StateReset($_IPS["TARGET"]);');
 		
 		// Status-Variablen anlegen
 		$this->RegisterProfileInteger("IPS2Beacons.Presence", "Motion", "", "", 0, 3, 0);
@@ -31,6 +39,8 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
+		$arrayElements[] = array("type" => "Label", "label" => "Zurücksetzen des Anwesenheitsstatus (Minimum 5 Sekunden)");
+		$arrayElements[] = array("type" => "NumberSpinner", "name" => "Timer_1", "caption" => "Zeit (sek)");
 		
 		$arrayActions = array();
 		     	
@@ -45,7 +55,6 @@
 		SetValueInteger($this->GetIDForIdent("State"), 0);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			
 			$this->SetStatus(102);
 			
 			
@@ -56,9 +65,29 @@
 		}	
 	}
 	
+	public function ReceiveData($JSONString) 
+	{
+	 	// Empfangene Daten vom Gateway/Splitter
+	    	$data = json_decode($JSONString);
+	 	switch ($data->Function) {
+			case "set_State":
+				// MAC?
+			    break;
+		}
+	}    
 	
 	// Beginn der Funktionen
-	
+	private function StateSet() {
+		SetValueInteger($this->GetIDForIdent("State"), 2);
+		$Timer_1 = $this->ReadPropertyInteger("Timer_1");
+		$Timer_1 = max($TimerPing, 5);
+		$this->SetTimerInterval("Timer_1", $Timer_1 * 1000);
+	}    
+	   
+	public function StateReset() {
+		SetValueInteger($this->GetIDForIdent("State"), 1);
+		$this->SetTimerInterval("Timer_1", 0);
+	}
 
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
