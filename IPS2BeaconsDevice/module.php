@@ -64,7 +64,7 @@
 				$this->SetStatus(102);
 			}
 			else {
-				Echo "Syntax der Device ID inkorrekt!";
+				Echo "Syntax der MAC inkorrekt!";
 				$this->SendDebug("ApplyChanges", "Syntax der MAC inkorrekt!", 0);
 				$this->SetStatus(202);
 			}
