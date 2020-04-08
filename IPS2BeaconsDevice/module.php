@@ -97,7 +97,7 @@
 		}
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$Timer_1 = $this->ReadPropertyInteger("Timer_1");
-		$Timer_1 = max($TimerPing, 5);
+		$Timer_1 = max($Timer_1, 5);
 		$this->SetTimerInterval("Timer_1", 0);
 		$this->SetTimerInterval("Timer_1", $Timer_1 * 1000);
 	}    
