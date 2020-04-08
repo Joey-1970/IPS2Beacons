@@ -40,6 +40,7 @@
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
+		$arrayElements[] = array("type" => "ValidationTextBox", "name" => "MAC", "caption" => "MAC");
 		$arrayElements[] = array("type" => "Label", "label" => "Zurücksetzen des Anwesenheitsstatus (Minimum 5 Sekunden)");
 		$arrayElements[] = array("type" => "NumberSpinner", "name" => "Timer_1", "caption" => "Zeit (sek)");
 		
