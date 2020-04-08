@@ -14,8 +14,9 @@
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
-		$this->RegisterPropertyBoolean("Open", false);
 		$this->ConnectParent("{1CB80BEC-EEB8-8CEB-F8A1-7DB11013F6A7}");
+		$this->RegisterPropertyBoolean("Open", false);
+		$this->RegisterPropertyString("MAC", "");
 		$this->RegisterPropertyInteger("Timer_1", 60);
 		$this->RegisterTimer("Timer_1", 0, 'IPS2BeaconsDevice_StateReset($_IPS["TARGET"]);');
 		
@@ -70,8 +71,10 @@
 	 	// Empfangene Daten vom Gateway/Splitter
 	    	$data = json_decode($JSONString);
 	 	switch ($data->Function) {
-			case "set_State":
-				// MAC?
+			case "DataUpdate":
+				If ($data->MAC == $this->ReadPropertyString("MAC")) {
+					$this->StateSet();
+				}
 			    break;
 		}
 	}    
