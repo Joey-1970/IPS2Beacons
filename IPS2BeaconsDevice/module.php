@@ -84,6 +84,7 @@
 	private function StateSet() {
 		$this->SendDebug("StateSet", "Status wird auf anwesend gesetzt", 0);
 		SetValueInteger($this->GetIDForIdent("State"), 2);
+		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$Timer_1 = $this->ReadPropertyInteger("Timer_1");
 		$Timer_1 = max($TimerPing, 5);
 		$this->SetTimerInterval("Timer_1", $Timer_1 * 1000);
@@ -92,6 +93,7 @@
 	public function StateReset() {
 		$this->SendDebug("StateReset", "Status wird auf abwesend gesetzt", 0);
 		SetValueInteger($this->GetIDForIdent("State"), 1);
+		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$this->SetTimerInterval("Timer_1", 0);
 	}
 
