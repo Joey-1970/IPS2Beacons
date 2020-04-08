@@ -59,6 +59,7 @@
 		SetValueInteger($this->GetIDForIdent("State"), 0);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
+			$MAC = $this->ReadPropertyString("MAC");
 			if (filter_var($MAC, FILTER_VALIDATE_MAC)) {
 				$this->SetStatus(102);
 			}
