@@ -28,6 +28,7 @@
 		
 		$this->RegisterVariableInteger("State", "Status", "IPS2Beacons.Presence", 10);
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 20);
+		$this->RegisterVariableInteger("LastChange", "Letztes Änderung", "~UnixTimestamp", 30);
         }
  	
 	public function GetConfigurationForm() 
@@ -83,7 +84,10 @@
 	// Beginn der Funktionen
 	private function StateSet() {
 		$this->SendDebug("StateSet", "Status wird auf anwesend gesetzt", 0);
-		SetValueInteger($this->GetIDForIdent("State"), 2);
+		If (GetValueInteger($this->GetIDForIdent("State")) <> 2) {
+			SetValueInteger($this->GetIDForIdent("State"), 2);
+			SetValueInteger($this->GetIDForIdent("LastChange"), time());
+		}
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$Timer_1 = $this->ReadPropertyInteger("Timer_1");
 		$Timer_1 = max($TimerPing, 5);
@@ -92,7 +96,10 @@
 	   
 	public function StateReset() {
 		$this->SendDebug("StateReset", "Status wird auf abwesend gesetzt", 0);
-		SetValueInteger($this->GetIDForIdent("State"), 1);
+		If (GetValueInteger($this->GetIDForIdent("State")) <> 1) {
+			SetValueInteger($this->GetIDForIdent("State"), 1);
+			SetValueInteger($this->GetIDForIdent("LastChange"), time());
+		}
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$this->SetTimerInterval("Timer_1", 0);
 	}
