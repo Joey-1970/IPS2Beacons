@@ -152,6 +152,8 @@
 		
 		$ClientPort = $Data->ClientPort;
 		$this->SendDebug("ReceiveData", "MAC: ".$MAC." Name: ".$BeaconName." ClintIP: ".$ReceivedClientIP." ClientPort: ".$ClientPort, 0);
+		$this->SendDataToChildren(json_encode(Array("DataID" => "{10F33B43-3B21-2103-79DA-60F0267053F5}", "Function" => "DataUpdate", "MAC" => $MAC)));
+
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 	}   
 	// Beginn der Funktionen
