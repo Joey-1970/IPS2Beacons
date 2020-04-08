@@ -121,6 +121,7 @@
  	    	// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
 	    	$Buffer = utf8_decode($Data->Buffer); 
+		
 		$ReceivedClientIP = $Data->ClientIP;
 		// Empfangen IP in Array sichern
 		$ClientIP = array();
@@ -132,7 +133,7 @@
 		}
 		
 		$ClientPort = $Data->ClientPort;
-		$this->SendDebug("ReceiveData", "Buffer: ".$Buffer." ClintIP: ".serialize($ClientIP)." ClientPort: ".$ClientPort, 0);
+		$this->SendDebug("ReceiveData", "Buffer: ".$Buffer." ClintIP: ".$ReceivedClientIP." ClientPort: ".$ClientPort, 0);
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 	}   
 	// Beginn der Funktionen
