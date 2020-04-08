@@ -125,15 +125,20 @@
 	    	$Buffer = utf8_decode($Data->Buffer); 
 		
 		$MAC = substr($Buffer, 0, 17);
+		$BeaconName = trim(substr($Buffer, 18));
 		if (filter_var($MAC, FILTER_VALIDATE_MAC)) {
 			// Empfangene MAC in Array sichern
 			$BeaconMAC = array();
 			$BeaconMAC = unserialize($this->ReadAttributeString("BeaconMAC"));
-			if (in_array($MAC, $BeaconMAC) == false) {
-				$BeaconMAC[] = $MAC;
-				$this->WriteAttributeString("BeaconMAC", serialize($BeaconMAC));
+			if (array_key_exists($MAC, $BeaconMAC) == false) {
+				$BeaconMAC[$MAC]["Name"] = $BeaconName;
+				$BeaconMAC[$MAC]["LastUpdate"] = time();
 				$this->SendDebug("ReceiveData", "BeaconMAC-Array: ".serialize($BeaconMAC), 0);
-			}		
+			}
+			else {
+				$BeaconMAC[$MAC]["LastUpdate"] = time();
+			}
+			$this->WriteAttributeString("BeaconMAC", serialize($BeaconMAC));
 		}
 		else {
 			$this->SendDebug("ReceiveData", "BeaconMAC ungueltig!", 0);
