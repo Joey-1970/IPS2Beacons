@@ -90,8 +90,8 @@
 	
 	// Beginn der Funktionen
 	private function StateSet() {
-		$this->SendDebug("StateSet", "Status wird auf anwesend gesetzt", 0);
 		If (GetValueInteger($this->GetIDForIdent("State")) <> 2) {
+			$this->SendDebug("StateSet", "Status wird auf anwesend gesetzt", 0);
 			SetValueInteger($this->GetIDForIdent("State"), 2);
 			SetValueInteger($this->GetIDForIdent("LastChange"), time());
 		}
@@ -103,8 +103,8 @@
 	}    
 	   
 	public function StateReset() {
-		$this->SendDebug("StateReset", "Status wird auf abwesend gesetzt", 0);
 		If (GetValueInteger($this->GetIDForIdent("State")) <> 1) {
+			$this->SendDebug("StateReset", "Status wird auf abwesend gesetzt", 0);
 			SetValueInteger($this->GetIDForIdent("State"), 1);
 			SetValueInteger($this->GetIDForIdent("LastChange"), time());
 		}
