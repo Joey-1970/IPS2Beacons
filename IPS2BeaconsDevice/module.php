@@ -37,10 +37,11 @@
 		$arrayStatus[] = array("code" => 101, "icon" => "inactive", "caption" => "Instanz wird erstellt"); 
 		$arrayStatus[] = array("code" => 102, "icon" => "active", "caption" => "Instanz ist aktiv");
 		$arrayStatus[] = array("code" => 104, "icon" => "inactive", "caption" => "Instanz ist inaktiv");
-		$arrayStatus[] = array("code" => 202, "icon" => "error", "caption" => "Kommunikationfehler!");
+		$arrayStatus[] = array("code" => 202, "icon" => "error", "caption" => "Fehlerhafte MAC!");
 				
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv");
+		$arrayElements[] = array("type" => "Label", "label" => "MAC-Adresse des Beacons");
 		$arrayElements[] = array("type" => "ValidationTextBox", "name" => "MAC", "caption" => "MAC");
 		$arrayElements[] = array("type" => "Label", "label" => "Zurücksetzen des Anwesenheitsstatus (Minimum 5 Sekunden)");
 		$arrayElements[] = array("type" => "NumberSpinner", "name" => "Timer_1", "caption" => "Zeit (sek)");
@@ -58,9 +59,14 @@
 		SetValueInteger($this->GetIDForIdent("State"), 0);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SetStatus(102);
-			
-			
+			if (filter_var($MAC, FILTER_VALIDATE_MAC)) {
+				$this->SetStatus(102);
+			}
+			else {
+				Echo "Syntax der Device ID inkorrekt!";
+				$this->SendDebug("ApplyChanges", "Syntax der MAC inkorrekt!", 0);
+				$this->SetStatus(202);
+			}
 		}
 		else {
 			$this->SetStatus(104);
