@@ -125,8 +125,8 @@
 			$Timestamp = date("d.m.Y H:i:s", time()); 
 			If (is_array($History) == true) {
 				$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
-				If (count($History) > 5) {
-					$History = array_shift($History);
+				If (count($History) > 10) {
+					array_shift($History);
 				}
 				$this->WriteAttributeString("History", serialize($History));
 				$this->SendDebug("History", serialize($History), 0);
