@@ -1,0 +1,14 @@
+{
+  "id": "{042E2886-8398-FB8D-5637-64C97192E61B}",
+  "name": "IPS2BeaconsConfigurator",
+  "type": 4,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2BeaconsConfigurator"
+  ],
+  "parentRequirements": ["{348C3E9C-31F8-2A75-8896-398B3536D1BA}"],
+  "childRequirements": [],
+  "implemented": ["{10F33B43-3B21-2103-79DA-60F0267053F5}"],
+  "prefix": "IPS2BeaconsConfigurator"
+}
