@@ -123,12 +123,18 @@
 			$History = array();
 			$History = unserialize($this->ReadAttributeString("History"));
 			$Timestamp = date("d.m.Y H:i:s", time()); 
-			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
-			If (count($History) > 5) {
-				$History = array_shift($History);
+			If (is_array($History) == true) {
+				$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
+				If (count($History) > 5) {
+					$History = array_shift($History);
+				}
+				$this->WriteAttributeString("History", serialize($History));
+				$this->SendDebug("History", serialize($History), 0);
 			}
-			$this->WriteAttributeString("History", serialize($History));
-			$this->SendDebug("History", serialize($History), 0);
+			else {
+				$History = array();
+				$this->WriteAttributeString("History", serialize($History));
+			}	
 		}
 	}
 
