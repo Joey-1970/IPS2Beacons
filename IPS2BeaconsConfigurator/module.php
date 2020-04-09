@@ -48,26 +48,19 @@
 			$BeaconArray = unserialize($this->GetData());
 		}
 		$arrayValues = array();
-		for ($i = 0; $i < Count($DeviceArray); $i++) {
+		for ($i = 0; $i < Count($BeaconArray); $i++) {
 			
 			$arrayCreate = array();
-			If (($DeviceArray[$i]["DeviceID"] >= 65537) AND 
-			    ($DeviceArray[$i]["Class"] <> "Unknown") AND 
-			    ($DeviceArray[$i]["Class"] <> "MotionSensor")) {
-				If ($DeviceArray[$i]["Class"] == "Bulb") {
-					$arrayCreate[] = array("moduleID" => "{3B0E081A-A63E-7496-E304-A34C00790516}", "location" => $RootNames,
-					       "configuration" => array("DeviceID" => $DeviceArray[$i]["DeviceID"], "Open" => true, "DeviceSpecification" => $DeviceArray[$i]["Specification"]));
-				}
-				elseIf ($DeviceArray[$i]["Class"] == "Plug") {
-					$arrayCreate[] = array("moduleID" => "{89756350-E4DB-F332-5B25-979C66F005D5}",  "location" => $RootNames,
-					       "configuration" => array("DeviceID" => $DeviceArray[$i]["DeviceID"], "Open" => true));
-				}
-				$arrayValues[] = array("DeviceID" => $DeviceArray[$i]["DeviceID"], "Name" => $DeviceArray[$i]["Name"], "Firmware" => $DeviceArray[$i]["Firmware"], "Class" => $DeviceArray[$i]["Class"], "Typ" => $DeviceArray[$i]["Typ"],
-					       "instanceID" => $DeviceArray[$i]["Instance"], "create" => $arrayCreate);
+			If (filter_var($BeaconArray[$i]["MAC"], FILTER_VALIDATE_MAC)) {
+				$arrayCreate[] = array("moduleID" => "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}", "location" => $RootNames,
+					       "configuration" => array("MAC" => $BeaconArray[$i]["MAC"], "Open" => true));
+				
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"],
+					       "instanceID" => $BeaconArray[$i]["Instance"], "create" => $arrayCreate);
 			}
 			else {
-				$arrayValues[] = array("DeviceID" => $DeviceArray[$i]["DeviceID"], "Name" => $DeviceArray[$i]["Name"], "Firmware" => $DeviceArray[$i]["Firmware"], "Class" => $DeviceArray[$i]["Class"], "Typ" => $DeviceArray[$i]["Typ"],
-					       "instanceID" => $DeviceArray[$i]["Instance"]);
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"],
+					       "instanceID" => $BeaconArray[$i]["Instance"]);
 			}
 			
 		}	
@@ -110,7 +103,7 @@
 				$Beacons[$i]["Name"] = $Beacon["Name"];
 				$Beacons[$i]["LastUpdate"] = $Beacon["LastUpdate"];
 				$Beacons[$i]["MAC"] = $Key;
-				$Beacons[$i]["Instance"] = 0; //$this->GetDeviceInstanceID($Key, $Device["Class"]);
+				$Beacons[$i]["Instance"] = $this->GetBeaconInstanceID($Key);
 				$i = $i + 1;
 			}
 		}
