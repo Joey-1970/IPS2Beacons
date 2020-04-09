@@ -26,8 +26,8 @@
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
 		$ClientIP = array();
 		$this->RegisterAttributeString("ClientIP", serialize($ClientIP));
-		$BeaconMAC = array();
-		$this->RegisterAttributeString("BeaconMAC", serialize($BeaconMAC));
+		$BeaconList = array();
+		$this->RegisterAttributeString("BeaconList", serialize($BeaconList));
         }
  	
 	public function GetConfigurationForm() 
@@ -113,7 +113,9 @@
 	    	$data = json_decode($JSONString);
 	    	$Result = false;
 	 	switch ($data->Function) {
-			
+			case "getBeaconList":
+				$Result = $this->ReadAttributeString("BeaconList");
+				break;
 			
 		}
 	return $Result;
@@ -128,20 +130,20 @@
 		$BeaconName = trim(substr($Buffer, 18));
 		if (filter_var($MAC, FILTER_VALIDATE_MAC)) {
 			// Empfangene MAC in Array sichern
-			$BeaconMAC = array();
-			$BeaconMAC = unserialize($this->ReadAttributeString("BeaconMAC"));
-			if (array_key_exists($MAC, $BeaconMAC) == false) {
-				$BeaconMAC[$MAC]["Name"] = $BeaconName;
-				$BeaconMAC[$MAC]["LastUpdate"] = time();
-				$this->SendDebug("ReceiveData", "BeaconMAC-Array: ".serialize($BeaconMAC), 0);
+			$BeaconList = array();
+			$BeaconList = unserialize($this->ReadAttributeString("BeaconList"));
+			if (array_key_exists($MAC, $BeaconList) == false) {
+				$BeaconList[$MAC]["Name"] = $BeaconName;
+				$BeaconList[$MAC]["LastUpdate"] = time();
+				$this->SendDebug("ReceiveData", "BeaconList-Array: ".serialize($BeaconList), 0);
 			}
 			else {
-				$BeaconMAC[$MAC]["LastUpdate"] = time();
+				$BeaconList[$MAC]["LastUpdate"] = time();
 			}
-			$this->WriteAttributeString("BeaconMAC", serialize($BeaconMAC));
+			$this->WriteAttributeString("BeaconList", serialize($BeaconList));
 		}
 		else {
-			$this->SendDebug("ReceiveData", "BeaconMAC ungueltig!", 0);
+			$this->SendDebug("ReceiveData", "Beacon MAC ungueltig!", 0);
 		}
 		$BeaconName = trim(substr($Buffer, 18));
 		
