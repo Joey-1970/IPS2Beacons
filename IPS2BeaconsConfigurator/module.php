@@ -30,7 +30,7 @@
 		$arrayColumns = array();
 		$arrayColumns[] = array("caption" => "MAC", "name" => "MAC", "width" => "250px", "visible" => true);
 		$arrayColumns[] = array("caption" => "Name", "name" => "Name", "width" => "250px", "visible" => true);
-		$arrayColumns[] = array("caption" => "LastUpdate", "name" => "LastUpdate", "width" => "auto", "visible" => true);
+		$arrayColumns[] = array("caption" => "Letzter Kontakt", "name" => "LastUpdate", "width" => "auto", "visible" => true);
 		
 		$Category = $this->ReadPropertyInteger("Category");
 		$RootNames = [];
@@ -51,15 +51,16 @@
 		for ($i = 0; $i < Count($BeaconArray); $i++) {
 			
 			$arrayCreate = array();
+			$LastUpdate = date("d.m.Y H:i:s", $BeaconArray[$i]["LastUpdate"]);    
 			If (filter_var($BeaconArray[$i]["MAC"], FILTER_VALIDATE_MAC)) {
 				$arrayCreate[] = array("moduleID" => "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}", "location" => $RootNames,
 					       "configuration" => array("MAC" => $BeaconArray[$i]["MAC"], "Open" => true));
 				
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $BeaconArray[$i]["LastUpdate"],
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate,
 					       "instanceID" => $BeaconArray[$i]["Instance"], "create" => $arrayCreate);
 			}
 			else {
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $BeaconArray[$i]["LastUpdate"],
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate,
 					       "instanceID" => $BeaconArray[$i]["Instance"]);
 			}
 			
