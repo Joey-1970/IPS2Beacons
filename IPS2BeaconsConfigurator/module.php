@@ -8,7 +8,7 @@
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
-		$this->ConnectParent("{562389F8-739F-644A-4FC7-36F2CE3AFE4F}");
+		$this->ConnectParent("{1CB80BEC-EEB8-8CEB-F8A1-7DB11013F6A7}");
 		$this->RegisterPropertyInteger("Category", 0);  
 		
         }
@@ -28,11 +28,9 @@
 		$arraySort = array("column" => "DeviceID", "direction" => "ascending");
 		
 		$arrayColumns = array();
-		$arrayColumns[] = array("caption" => "Geräte ID", "name" => "DeviceID", "width" => "100px", "visible" => true);
+		$arrayColumns[] = array("caption" => "MAC", "name" => "DeviceID", "width" => "100px", "visible" => true);
 		$arrayColumns[] = array("caption" => "Name", "name" => "Name", "width" => "250px", "visible" => true);
-		$arrayColumns[] = array("caption" => "Typ", "name" => "Typ", "width" => "300px", "visible" => true);
-		$arrayColumns[] = array("caption" => "Firmware", "name" => "Firmware", "width" => "150px", "visible" => true);
-		$arrayColumns[] = array("caption" => "Klasse", "name" => "Class", "width" => "auto", "visible" => true);
+		$arrayColumns[] = array("caption" => "LastUpdate", "name" => "Class", "width" => "auto", "visible" => true);
 		
 		$Category = $this->ReadPropertyInteger("Category");
 		$RootNames = [];
@@ -45,9 +43,9 @@
 			}
 		$RootNames = array_reverse($RootNames);
 		
-		$DeviceArray = array();
+		$BeaconArray = array();
 		If ($this->HasActiveParent() == true) {
-			$DeviceArray = unserialize($this->GetData());
+			$BeaconArray = unserialize($this->GetData());
 		}
 		$arrayValues = array();
 		for ($i = 0; $i < Count($DeviceArray); $i++) {
@@ -73,7 +71,7 @@
 			}
 			
 		}	
-		$arrayElements[] = array("type" => "Configurator", "name" => "DeviceList", "caption" => "Tradri-Geräte", "rowCount" => 10, "delete" => false, "sort" => $arraySort, "columns" => $arrayColumns, "values" => $arrayValues);
+		$arrayElements[] = array("type" => "Configurator", "name" => "BeaconList", "caption" => "Beacons", "rowCount" => 10, "delete" => false, "sort" => $arraySort, "columns" => $arrayColumns, "values" => $arrayValues);
 
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
 		
