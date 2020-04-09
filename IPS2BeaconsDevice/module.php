@@ -130,7 +130,7 @@
 				}
 				$this->WriteAttributeString("History", serialize($History));
 				//$this->SendDebug("History", serialize($History), 0);
-				$Connection = "Sender IP           Zeitstempel".chr(13);
+				$Connection = "Sender IP            Zeitstempel".chr(13);
 				foreach($History as $LastConnection) {
 					$Connection = $Connection.$LastConnection["IP"]." - ".$LastConnection["Timestamp"].chr(13);
 				}
