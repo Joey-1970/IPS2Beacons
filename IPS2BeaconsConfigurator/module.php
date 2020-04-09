@@ -28,9 +28,9 @@
 		$arraySort = array("column" => "DeviceID", "direction" => "ascending");
 		
 		$arrayColumns = array();
-		$arrayColumns[] = array("caption" => "MAC", "name" => "DeviceID", "width" => "100px", "visible" => true);
+		$arrayColumns[] = array("caption" => "MAC", "name" => "MAC", "width" => "100px", "visible" => true);
 		$arrayColumns[] = array("caption" => "Name", "name" => "Name", "width" => "250px", "visible" => true);
-		$arrayColumns[] = array("caption" => "LastUpdate", "name" => "Class", "width" => "auto", "visible" => true);
+		$arrayColumns[] = array("caption" => "LastUpdate", "name" => "LastUpdate", "width" => "auto", "visible" => true);
 		
 		$Category = $this->ReadPropertyInteger("Category");
 		$RootNames = [];
