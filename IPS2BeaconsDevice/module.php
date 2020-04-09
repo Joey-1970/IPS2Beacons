@@ -20,6 +20,9 @@
 		$this->RegisterPropertyInteger("Timer_1", 60);
 		$this->RegisterTimer("Timer_1", 0, 'IPS2BeaconsDevice_StateReset($_IPS["TARGET"]);');
 		
+		$History = array();
+		$this->RegisterAttributeString("History", serialize($History));
+		
 		// Status-Variablen anlegen
 		$this->RegisterProfileInteger("IPS2Beacons.Presence", "Motion", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Beacons.Presence", 0, "unbekannt", "Motion", 0xff0000);
