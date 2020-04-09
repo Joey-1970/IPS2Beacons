@@ -66,8 +66,6 @@
 			
 		}	
 		$arrayElements[] = array("type" => "Configurator", "name" => "BeaconList", "caption" => "Beacons", "rowCount" => 10, "delete" => false, "sort" => $arraySort, "columns" => $arrayColumns, "values" => $arrayValues);
-
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
 		
  		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements)); 		 
  	}       
