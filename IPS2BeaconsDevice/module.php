@@ -87,8 +87,8 @@
 			case "DataUpdate":
 				If ($data->MAC == $this->ReadPropertyString("MAC")) {
 					$this->StateSet();
-					$this->SendDebug("ReceiveData", $data->IP, 0);
-					//$this->History($data->IP);
+					//$this->SendDebug("ReceiveData", $data->IP, 0);
+					$this->History($data->IP);
 				}
 			    break;
 		}
@@ -122,7 +122,7 @@
 		if (filter_var($IP, FILTER_VALIDATE_IP)) {
 			$History = array();
 			$History = unserialize($this->ReadAttributeString("History"));
-			$Timestamp = date("d.m.Y H:i:s", time()); 
+			$Timestamp = 0; //date("d.m.Y H:i:s", time()); 
 			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
 			If (count($History) > 10) {
 				$History = array_shift($History);
