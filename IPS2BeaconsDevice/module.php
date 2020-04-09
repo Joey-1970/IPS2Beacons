@@ -32,6 +32,7 @@
 		$this->RegisterVariableInteger("State", "Status", "IPS2Beacons.Presence", 10);
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 20);
 		$this->RegisterVariableInteger("LastChange", "Letztes Änderung", "~UnixTimestamp", 30);
+		$this->RegisterVariableString("History", "Historie", "~HTMLBox", 40);
         }
  	
 	public function GetConfigurationForm() 
@@ -113,6 +114,10 @@
 		}
 		SetValueInteger($this->GetIDForIdent("LastUpdate"), time());
 		$this->SetTimerInterval("Timer_1", 0);
+	}
+	    
+	private function History(String $IP) {
+		
 	}
 
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
