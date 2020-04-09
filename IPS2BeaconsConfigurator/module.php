@@ -117,22 +117,18 @@
 	return serialize($Beacons);;
 	}
 	
-	function GetDeviceInstanceID(int $DeviceID, string $Class)
+	function GetBeaconInstanceID(string $MAC)
 	{
-		If ($Class == "Bulb") {
-			$guid = "{3B0E081A-A63E-7496-E304-A34C00790516}";
-		}
-		elseIf ($Class == "Plug") {
-			$guid = "{89756350-E4DB-F332-5B25-979C66F005D5}";
-		}
+		$guid = "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}";
+		
 	    	$Result = 0;
 	    	// Modulinstanzen suchen
 	    	$InstanceArray = array();
 	    	$InstanceArray = @(IPS_GetInstanceListByModuleID($guid));
 	    	If (is_array($InstanceArray)) {
 			foreach($InstanceArray as $Module) {
-				If (strtolower(IPS_GetProperty($Module, "DeviceID")) == $DeviceID) {
-					$this->SendDebug("GetDeviceInstanceID", "Gefundene Instanz: ".$Module, 0);
+				If (strtolower(IPS_GetProperty($Module, "MAC")) == strtolower($MAC)) {
+					$this->SendDebug("GetBeaconInstanceID", "Gefundene Instanz: ".$Module, 0);
 					$Result = $Module;
 					break;
 				}
