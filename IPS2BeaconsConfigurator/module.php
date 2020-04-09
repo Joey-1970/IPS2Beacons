@@ -30,7 +30,8 @@
 		$arrayColumns = array();
 		$arrayColumns[] = array("caption" => "MAC", "name" => "MAC", "width" => "250px", "visible" => true);
 		$arrayColumns[] = array("caption" => "Name", "name" => "Name", "width" => "250px", "visible" => true);
-		$arrayColumns[] = array("caption" => "Letzter Kontakt", "name" => "LastUpdate", "width" => "auto", "visible" => true);
+		$arrayColumns[] = array("caption" => "Letzter Kontakt", "name" => "LastUpdate", "width" => "250px", "visible" => true);
+		$arrayColumns[] = array("caption" => "IP", "name" => "IP", "width" => "auto", "visible" => true);
 		
 		$Category = $this->ReadPropertyInteger("Category");
 		$RootNames = [];
@@ -56,11 +57,11 @@
 				$arrayCreate[] = array("moduleID" => "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}", "location" => $RootNames,
 					       "configuration" => array("MAC" => $BeaconArray[$i]["MAC"], "Open" => true));
 				
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate,
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate, "IP" => $BeaconArray[$i]["IP"],
 					       "instanceID" => $BeaconArray[$i]["Instance"], "create" => $arrayCreate);
 			}
 			else {
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate,
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $LastUpdate, "IP" => $BeaconArray[$i]["IP"],
 					       "instanceID" => $BeaconArray[$i]["Instance"]);
 			}
 			
@@ -101,6 +102,7 @@
 			foreach($BeaconArray as $Key => $Beacon) {
 				$Beacons[$i]["Name"] = $Beacon["Name"];
 				$Beacons[$i]["LastUpdate"] = $Beacon["LastUpdate"];
+				$Beacons[$i]["IP"] = $Beacon["IP"];
 				$Beacons[$i]["MAC"] = $Key;
 				$Beacons[$i]["Instance"] = $this->GetBeaconInstanceID($Key);
 				$i = $i + 1;
