@@ -87,7 +87,8 @@
 			case "DataUpdate":
 				If ($data->MAC == $this->ReadPropertyString("MAC")) {
 					$this->StateSet();
-					$this->History($data->IP);
+					$this->SendDebug("ReceiveData", $data->IP, 0);
+					//$this->History($data->IP);
 				}
 			    break;
 		}
