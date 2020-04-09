@@ -32,7 +32,7 @@
 		$this->RegisterVariableInteger("State", "Status", "IPS2Beacons.Presence", 10);
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 20);
 		$this->RegisterVariableInteger("LastChange", "Letztes Änderung", "~UnixTimestamp", 30);
-		$this->RegisterVariableString("History", "Historie", "~HTMLBox", 40);
+		$this->RegisterVariableString("History", "Historie", "~TextBox", 40);
         }
  	
 	public function GetConfigurationForm() 
@@ -129,7 +129,12 @@
 					array_shift($History);
 				}
 				$this->WriteAttributeString("History", serialize($History));
-				$this->SendDebug("History", serialize($History), 0);
+				//$this->SendDebug("History", serialize($History), 0);
+				$Connection = "";
+				foreach($History as $LastConnection) {
+					$Connection = $Connection.$LastConnection["IP"]." ".$LastConnection["Timestamp"].chr(13);
+				}
+				SetValueString($this->GetIDForIdent("History"), $Connection);
 			}
 			else {
 				$History = array();
