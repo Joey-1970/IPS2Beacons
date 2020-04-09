@@ -118,14 +118,17 @@
 	}
 	    
 	private function History(String $IP) {
-		$History = array();
-		$History = unserialize($this->ReadAttributeString("History"));
-		$History[] = array("IP" => $IP, "Timestamp" => time() );
-		If (count($History) > 10) {
-			$History = array_shift($History);
+		if (filter_var($IP, FILTER_VALIDATE_IP)) {
+			$History = array();
+			$History = unserialize($this->ReadAttributeString("History"));
+			$Timestamp = date("d.m.Y H:i:s", time()); 
+			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp = date("d.m.Y H:i:s", time()); );
+			If (count($History) > 10) {
+				$History = array_shift($History);
+			}
+			$this->WriteAttributeString("History", serialize($History));
+			$this->SendDebug("History", serialize($History), 0);
 		}
-		$this->WriteAttributeString("History", serialize($History));
-		$this->SendDebug("History", serialize($History), 0);
 	}
 
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
