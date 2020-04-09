@@ -122,7 +122,7 @@
 			$History = array();
 			$History = unserialize($this->ReadAttributeString("History"));
 			$Timestamp = date("d.m.Y H:i:s", time()); 
-			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp = date("d.m.Y H:i:s", time()); );
+			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
 			If (count($History) > 10) {
 				$History = array_shift($History);
 			}
