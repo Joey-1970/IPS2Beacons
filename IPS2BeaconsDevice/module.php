@@ -117,13 +117,12 @@
 		$this->SetTimerInterval("Timer_1", 0);
 	}
 	    
-	private function History(String $IP) {
+	private function History($IP) {
 		if (filter_var($IP, FILTER_VALIDATE_IP)) {
 			$History = array();
 			$History = unserialize($this->ReadAttributeString("History"));
 			$Timestamp = date("d.m.Y H:i:s", time()); 
-			$Values = array("IP" => $IP, "Timestamp" => $Timestamp);
-			$History[] = $Values;
+			$History[] = array("IP" => $IP, "Timestamp" => $Timestamp);
 			If (count($History) > 10) {
 				$History = array_shift($History);
 			}
