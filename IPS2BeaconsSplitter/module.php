@@ -19,10 +19,6 @@
 		$this->RegisterPropertyInteger("TimerPing", 60);
 		$this->RegisterTimer("TimerPing", 0, 'IPS2BeaconsSplitter_ClientPing($_IPS["TARGET"]);');
 		
-		
-		
-		
-		
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
 		$ClientIP = array();
 		$this->RegisterAttributeString("ClientIP", serialize($ClientIP));
