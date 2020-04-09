@@ -134,10 +134,12 @@
 			$BeaconList = unserialize($this->ReadAttributeString("BeaconList"));
 			if (array_key_exists($MAC, $BeaconList) == false) {
 				$BeaconList[$MAC]["Name"] = $BeaconName;
+				$BeaconList[$MAC]["IP"] = $Data->ClientIP;
 				$BeaconList[$MAC]["LastUpdate"] = time();
 				$this->SendDebug("ReceiveData", "BeaconList-Array: ".serialize($BeaconList), 0);
 			}
 			else {
+				$BeaconList[$MAC]["IP"] = $Data->ClientIP;
 				$BeaconList[$MAC]["LastUpdate"] = time();
 			}
 			$this->WriteAttributeString("BeaconList", serialize($BeaconList));
