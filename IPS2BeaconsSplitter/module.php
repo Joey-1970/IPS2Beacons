@@ -165,7 +165,12 @@
 	public function ClientPing()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->SendDebug("ClientPing", "Bekannte IP werden angepingt", 0);
+			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
+			$KnownIP = "";
+			foreach ($ClientIP as $IP) {
+				$KnownIP = $KnownIP."(".$IP.") ";
+			}
+			$this->SendDebug("ClientPing", "Bekannte IP ".$KnownIP."werden angepingt", 0);
 			$ClientIP = array();
 			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
 			foreach ($ClientIP as $IP) {
@@ -176,7 +181,7 @@
     				else {
 
     				}
-}
+			}
 		}
 	}
 	
