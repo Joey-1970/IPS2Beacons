@@ -106,8 +106,9 @@
 				$Beacons[$i]["Instance"] = $this->GetBeaconInstanceID($Key);
 				$i = $i + 1;
 			}
+			$this->SendDebug("GetData", serialize($Beacons), 0);
 		}
-	return serialize($Beacons);;
+	return serialize($Beacons);
 	}
 	
 	function GetBeaconInstanceID(string $MAC)
