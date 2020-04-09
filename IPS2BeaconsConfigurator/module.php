@@ -55,11 +55,11 @@
 				$arrayCreate[] = array("moduleID" => "{45CC1ABC-2092-B24F-EE7F-80670FB8AEC5}", "location" => $RootNames,
 					       "configuration" => array("MAC" => $BeaconArray[$i]["MAC"], "Open" => true));
 				
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"],
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $BeaconArray[$i]["LastUpdate"],
 					       "instanceID" => $BeaconArray[$i]["Instance"], "create" => $arrayCreate);
 			}
 			else {
-				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"],
+				$arrayValues[] = array("MAC" => $BeaconArray[$i]["MAC"], "Name" => $BeaconArray[$i]["Name"], "LastUpdate" => $BeaconArray[$i]["LastUpdate"],
 					       "instanceID" => $BeaconArray[$i]["Instance"]);
 			}
 			
