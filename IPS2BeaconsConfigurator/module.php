@@ -97,29 +97,24 @@
 	// Beginn der Funktionen
 	private function GetData()
 	{
-		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{4AA318CB-CA9A-2467-3079-A35AD1577771}", 
-				"Function" => "getDeviceList" )));
-		//$this->SendDebug("GetData", $Result, 0);
-		$DeviceArray = unserialize($Result);
-		If (is_array($DeviceArray)) {
+		$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{348C3E9C-31F8-2A75-8896-398B3536D1BA}", 
+				"Function" => "getBeaconList" )));
+		$this->SendDebug("GetData", $Result, 0);
+		$BeaconArray = unserialize($Result);
+		If (is_array($BeaconArray)) {
 			$this->SetStatus(102);
 			$this->SendDebug("GetData", $Result, 0);
-			$Devices = array();
+			$Beacons = array();
 			$i = 0;
-			foreach($DeviceArray as $Key => $Device) {
-				$Devices[$i]["Name"] = $Device["Name"];
-				$Devices[$i]["Typ"] = $Device["Typ"];
-				$Devices[$i]["Firmware"] = $Device["Firmware"];
-				$Devices[$i]["Class"] = $Device["Class"];
-				$Devices[$i]["DeviceID"] = $Key;
-				If (isset($Device["Specification"])) {
-					$Devices[$i]["Specification"] = $Device["Specification"];
-				}
-				$Devices[$i]["Instance"] = $this->GetDeviceInstanceID($Key, $Device["Class"]);
+			foreach($BeaconArray as $Key => $Beacon) {
+				$Beacons[$i]["Name"] = $Beacon["Name"];
+				$Beacons[$i]["LastUpdate"] = $Beacon["LastUpdate"];
+				$Beacons[$i]["MAC"] = $Key;
+				$Beacons[$i]["Instance"] = 0; //$this->GetDeviceInstanceID($Key, $Device["Class"]);
 				$i = $i + 1;
 			}
 		}
-	return serialize($Devices);;
+	return serialize($Beacons);;
 	}
 	
 	function GetDeviceInstanceID(int $DeviceID, string $Class)
