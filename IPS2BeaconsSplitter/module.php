@@ -166,20 +166,23 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
+			$NumberKonwnClients = count($ClientIP);
+			
 			$KnownIP = "";
 			foreach ($ClientIP as $IP) {
 				$KnownIP = $KnownIP."(".$IP.") ";
 			}
-			$this->SendDebug("ClientPing", "Bekannte IP ".$KnownIP."werden angepingt", 0);
+			$this->SendDebug("ClientPing", $NumberKonwnClients." bekannte IP ".$KnownIP."werden angepingt", 0);
 			$ClientIP = array();
 			$ClientIP = unserialize($this->ReadAttributeString("ClientIP"));
+			$ReachableClients = 0;
 			foreach ($ClientIP as $IP) {
     				$Result = Sys_Ping($IP, 200);
     				If ($Result == false) {
 					$this->SendDebug("ClientPing", "Nicht erreichbare IP: ".$IP, 0);
     				}
     				else {
-
+					$ReachableClients = $ReachableClients + 1;
     				}
 			}
 		}
