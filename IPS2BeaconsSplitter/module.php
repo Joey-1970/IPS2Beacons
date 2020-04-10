@@ -49,7 +49,9 @@
 		$arrayElements[] = array("type" => "NumberSpinner", "name" => "TimerPing", "caption" => "Ping (sek)");
 
 		$arrayActions = array();
-		     	
+		$arrayActions[] = array("type" => "Label", "label" => "Löschung der Liste aller bekannten IP");
+		$arrayActions[] = array("type" => "Button", "name" => "Button", "caption" => "Löschen", "onClick" => 'IPS2BeaconsSplitter_DeleteAllClientIP($id);');
+   	
  		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements, "actions" => $arrayActions)); 		 
  	}       
 	   
@@ -208,6 +210,12 @@
 				SetValueInteger($this->GetIDForIdent("ClientState"), 3);
 			}
 		}
+	}
+	    
+	private function DeleteAllClientIP()
+	{
+		$ClientIP = array();
+		$this->WriteAttributeString("ClientIP", serialize($ClientIP));
 	}
 	
 	private function GetParentID()
