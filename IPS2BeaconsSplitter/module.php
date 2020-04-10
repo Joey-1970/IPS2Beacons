@@ -19,7 +19,16 @@
 		$this->RegisterPropertyInteger("TimerPing", 60);
 		$this->RegisterTimer("TimerPing", 0, 'IPS2BeaconsSplitter_ClientPing($_IPS["TARGET"]);');
 		
+		// Status-Variablen anlegen
+		$this->RegisterProfileInteger("IPS2Beacons.ClientState", "Information", "", "", 0, 3, 0);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.ClientState", 0, "Keine bekannten Clients", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.ClientState", 1, "Keine bekannten Clients sind online", "Warning", 0xff0000);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.ClientState", 2, "Nicht alle bekannten Clients sind online", "Warning", 0xffff00);
+		IPS_SetVariableProfileAssociation("IPS2Beacons.ClientState", 3, "Alle bekannten Clients sind online", "Ok", 0x00ff00);
+		
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
+		$this->RegisterVariableInteger("ClientState", "Client Status", "IPS2Beacons.ClientState", 20);
+		
 		$ClientIP = array();
 		$this->RegisterAttributeString("ClientIP", serialize($ClientIP));
 		$BeaconList = array();
@@ -49,6 +58,7 @@
         {
             	// Diese Zeile nicht löschen
             	parent::ApplyChanges();
+		SetValueInteger($this->GetIDForIdent("ClientState"), 0);
 		
 		$ParentID = $this->GetParentID();
 			
@@ -185,6 +195,18 @@
 					$ReachableClients = $ReachableClients + 1;
     				}
 			}
+			If (count($ClientIP) == 0) {
+				SetValueInteger($this->GetIDForIdent("ClientState"), 0);
+			}
+			elseif ((count($ClientIP) > 0) AND ($ReachableClients == 0)) {
+				SetValueInteger($this->GetIDForIdent("ClientState"), 1);
+			}
+			elseif ((count($ClientIP) > 0) AND ($ReachableClients < count($ClientIP))) {
+				SetValueInteger($this->GetIDForIdent("ClientState"), 2);
+			}
+			elseif ((count($ClientIP) > 0) AND ($ReachableClients == count($ClientIP))) {
+				SetValueInteger($this->GetIDForIdent("ClientState"), 3;
+			}
 		}
 	}
 	
@@ -194,6 +216,21 @@
 	return $ParentID;
 	}
 	   
-	 
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);        
+	}
 }
 ?>
