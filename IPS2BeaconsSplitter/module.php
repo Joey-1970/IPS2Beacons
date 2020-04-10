@@ -198,16 +198,24 @@
     				}
 			}
 			If (count($ClientIP) == 0) {
-				SetValueInteger($this->GetIDForIdent("ClientState"), 0);
+				If (GetValueInteger($this->GetIDForIdent("ClientState")) <> 0) {
+					SetValueInteger($this->GetIDForIdent("ClientState"), 0);
+				}
 			}
 			elseif ((count($ClientIP) > 0) AND ($ReachableClients == 0)) {
-				SetValueInteger($this->GetIDForIdent("ClientState"), 1);
+				If (GetValueInteger($this->GetIDForIdent("ClientState")) <> 1) {
+					SetValueInteger($this->GetIDForIdent("ClientState"), 1);
+				}
 			}
 			elseif ((count($ClientIP) > 0) AND ($ReachableClients < count($ClientIP))) {
-				SetValueInteger($this->GetIDForIdent("ClientState"), 2);
+				If (GetValueInteger($this->GetIDForIdent("ClientState")) <> 2) {
+					SetValueInteger($this->GetIDForIdent("ClientState"), 2);
+				}
 			}
 			elseif ((count($ClientIP) > 0) AND ($ReachableClients == count($ClientIP))) {
-				SetValueInteger($this->GetIDForIdent("ClientState"), 3);
+				If (GetValueInteger($this->GetIDForIdent("ClientState")) <> 3) {
+					SetValueInteger($this->GetIDForIdent("ClientState"), 3);
+				}
 			}
 		}
 	}
