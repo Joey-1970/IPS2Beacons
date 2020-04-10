@@ -205,7 +205,7 @@
 				SetValueInteger($this->GetIDForIdent("ClientState"), 2);
 			}
 			elseif ((count($ClientIP) > 0) AND ($ReachableClients == count($ClientIP))) {
-				SetValueInteger($this->GetIDForIdent("ClientState"), 3;
+				SetValueInteger($this->GetIDForIdent("ClientState"), 3);
 			}
 		}
 	}
